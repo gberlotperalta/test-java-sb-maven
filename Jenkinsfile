@@ -9,7 +9,7 @@ pipeline {
 
     //give a hoot—don't pollute!
     options {
-    	   buildDiscarder(logRotator(daysToKeepStr: '5', artifactNumToKeepStr: '10'))
+    	   buildDiscarder(logRotator(daysToKeepStr: '10', artifactNumToKeepStr: '10'))
 	   disableConcurrentBuilds()
 	}
 
@@ -66,9 +66,9 @@ pipeline {
 	// static code analysis using sonarqube
         stage('static analysis') {
             steps {
-                sh 'echo static analysis'
+                //sh 'echo static analysis'
                
-                sh "mvn sonar:sonar -Dsonar.host.url=$SONARHOST" 
+                //sh "mvn sonar:sonar -Dsonar.host.url=$SONARHOST" 
 
             }
 	}
@@ -111,40 +111,6 @@ pipeline {
                 archiveArtifacts artifacts: '**/target/site/surefire-report.html'
             }
         }        
-        
-	// the resulting package created from running an automated build should always be stored in a binary repository ( Artifactory )
-	// with the intial package status of "unstable".  Only after the unstable package passes integration, api and/or functional testing 
-	// should the package status be marked as "stable" in Artifactory.
-	// only runs on the 'master' branch     
-        stage('Store to Artifactory'){
-	    //when { branch "master" }
-	    when {
-		branch 'master'    
-  		environment name: 'GIT_URL', value: 'https://github.dxc.com/AET/example-java-sb-maven.git'
-	    }	
-            steps {
-                sh 'echo store to Artifactory'
-		//sh 'printenv'
-                //store automated build artifacts into Artifactory
-                //the Artifactory credentials are stored  within Jenkins credentials
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: env.JENKINSCREDID, usernameVariable: 'A_USERNAME', passwordVariable: 'A_PASSWORD']]){
-                    sh "echo '<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd\"><servers><server><id>$JENKINSCREDID</id><username>$A_USERNAME</username><password>$A_PASSWORD</password><filePermissions>664</filePermissions><directoryPermissions>775</directoryPermissions><configuration></configuration></server></servers></settings>' > settings2.xml"
-                    sh "mvn deploy -s settings2.xml"    
-                }         
-            }
-        }
-        
-	// send a build pipeline messages to MS Teams    
-        stage('Send message MS TEAMS'){
-            steps {
-                   sh "echo send message"
-                   //sending messages to MS Teams does not require a special stage
-                   //From MS Teams add the enterprise github connector to your channel and follow the direction to add the webhook to github
-                   //After this is setup and configured you MS Team channel will receive message from github and jenkins.                  
-            }
-            //steps
-        } 
-        // stage
     }
     //stages
      post {
