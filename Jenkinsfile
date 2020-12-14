@@ -29,13 +29,7 @@ pipeline {
     }
  
     //start with a clean workspace
-    stages {
-	 stage('Fix jenkins Permisions') {             
-            steps { 
-                sh "sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace"
-            }
-        }   
-	    
+    stages {    
 	stage('Clean') {             
             steps { 
                 sh 'echo build'                        
