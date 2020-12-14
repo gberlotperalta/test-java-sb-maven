@@ -96,7 +96,7 @@ pipeline {
                 //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
                 //archiveArtifacts artifacts: '**/*'
 		archiveArtifacts artifacts: '**/target/site/**/*'    
-		archiveArtifacts artifacts: '**/target/dependency-check*.*' 
+		//archiveArtifacts artifacts: '**/target/dependency-check*.*' 
 		archiveArtifacts artifacts: '**/target/jacoco-ut/jacoco.xml' 
                 archiveArtifacts artifacts: '**/target/site/surefire-report.html'
             }
