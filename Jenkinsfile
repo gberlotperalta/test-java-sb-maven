@@ -48,7 +48,7 @@ pipeline {
             post {
                 always {
                   sh 'echo save unit test results'
-                  junit '**/target/surefire-reports/TEST-*.xml'	           
+                  
                 }
             }
         }*/ 	    
