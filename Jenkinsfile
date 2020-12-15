@@ -3,7 +3,7 @@ pipeline {
     agent {
          docker {
             image 'maven:3.5.4-jdk-8-alpine'
-            args '--user "$(id -u):$(id -g)" -v /etc/passwd:/etc/passwd:ro -v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v $WORKSPACE:/tmp/sbapp -u="jenkins:jenkins" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
