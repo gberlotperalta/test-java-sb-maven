@@ -34,7 +34,7 @@ pipeline {
             steps { 
                 sh 'echo build'                     
 		sh 'whoami'
-                sh 'touch test.txt'
+                sh "mvn -B -DskipTests clean package"
             }
         }
     
