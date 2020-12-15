@@ -3,7 +3,7 @@ pipeline {
     agent {
          docker {
             image 'maven:3.5.4-jdk-8-alpine'
-            args '-v $WORKSPACE:/tmp/sbapp -u="jenkins:jenkins" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v $WORKSPACE:/tmp/sbapp -u="root:root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -32,7 +32,8 @@ pipeline {
     stages {    
 	stage('Clean') {             
             steps { 
-                sh 'echo build'                        
+                sh 'echo build'                     
+		sh 'whoami'
                 sh "mvn -B -DskipTests clean package"
             }
         }
