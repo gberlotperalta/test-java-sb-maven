@@ -34,11 +34,12 @@ pipeline {
             steps { 
                 sh 'echo build'                     
 		sh 'whoami'
-                sh "mvn -B -DskipTests clean package"
+                sh 'touch test.txt'
             }
         }
     
 	  // unit testing	    
+       /*
        stage('Unit Test') {
             steps {
                 sh 'mvn test'
@@ -50,7 +51,7 @@ pipeline {
                   junit '**/target/surefire-reports/TEST-*.xml'	           
                 }
             }
-        } 	    
+        }*/ 	    
 	    
 	// static code analysis using sonarqube
 	/*        
@@ -140,6 +141,7 @@ pipeline {
      post {
         always {
             echo 'One way or another, I have finished'	
+	    sh 'whoami'
             deleteDir() /* clean up our workspace */
         }
         success {
