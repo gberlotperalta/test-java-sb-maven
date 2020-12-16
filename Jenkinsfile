@@ -34,6 +34,7 @@ pipeline {
             steps { 
 		sh 'echo $PWD'
                 sh "umask 0000"
+		sh 'umask'
             }
         }    
 	    
