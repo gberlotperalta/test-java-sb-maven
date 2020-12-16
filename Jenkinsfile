@@ -32,6 +32,7 @@ pipeline {
     stages {
 	stage('Fix jenkins permission issues ') {             
             steps { 
+		sh 'echo $PWD'
                 sh "umask 0000"
             }
         }    
@@ -40,9 +41,11 @@ pipeline {
             steps { 
                 sh 'echo build'                     
 		sh 'whoami'
+		sh 'echo $PWD'
 		sh 'umask'
                 sh "mvn -B -DskipTests clean package"
 		sh 'umask'
+		sh 'echo $PWD'
             }
         }
     
