@@ -29,7 +29,13 @@ pipeline {
     }
  
     //start with a clean workspace
-    stages {    
+    stages {
+	stage('Fix jenkins permission issues ') {             
+            steps { 
+                sh "./umask.sh"
+            }
+        }    
+	    
 	stage('Clean') {             
             steps { 
                 sh 'echo build'                     
