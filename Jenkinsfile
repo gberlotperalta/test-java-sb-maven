@@ -30,23 +30,13 @@ pipeline {
  
     //start with a clean workspace
     stages {
-	stage('Fix jenkins permission issues ') {             
-            steps { 
-		//sh "chmod +x umask.sh"
-                //sh "./umask.sh"
-		sh 'umask'
-            }
-        }    
-	    
+	       
 	stage('Clean') {             
             steps { 
                 sh 'echo build'                     
-		sh 'whoami'
-		sh 'echo $PWD'
 		sh 'umask'
                 sh "mvn -B -DskipTests clean package"
 		sh 'umask'
-		sh 'echo $PWD'
             }
         }
     
