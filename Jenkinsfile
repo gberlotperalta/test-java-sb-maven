@@ -32,8 +32,7 @@ pipeline {
     stages {
 	stage('Fix jenkins permission issues ') {             
             steps { 
-		sh "chmod +x umask.sh"
-                sh "./umask.sh"
+                sh "umask 0000"
             }
         }    
 	    
@@ -41,7 +40,9 @@ pipeline {
             steps { 
                 sh 'echo build'                     
 		sh 'whoami'
+		sh 'umask'
                 sh "mvn -B -DskipTests clean package"
+		sh 'umask'
             }
         }
     
