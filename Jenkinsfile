@@ -32,8 +32,8 @@ pipeline {
     stages {
 	stage('Fix jenkins permission issues ') {             
             steps { 
-		sh 'echo $PWD'
-                sh "umask 0000"
+		sh "chmod +x umask.sh"
+                sh "./umask.sh"
 		sh 'umask'
             }
         }    
