@@ -3,7 +3,7 @@ pipeline {
     agent {
          docker {
             image 'maven:3.5.4-jdk-8-alpine'
-            args '-v $WORKSPACE:/tmp/sbapp --user="root:root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock -c "umask 0000;"'
+            args '-v $WORKSPACE:/tmp/sbapp --user="root:root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock "umask 0000;"'
         }
     }
 
