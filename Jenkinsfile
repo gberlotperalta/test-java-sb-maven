@@ -3,7 +3,7 @@ pipeline {
     agent {
          docker {
             image 'maven:3.5.4-jdk-8-alpine'
-            args '-v $WORKSPACE:/tmp/sbapp -u="root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock'
+            args '-v $WORKSPACE:/tmp/sbapp -u="root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock ash -c "umask 0000;"'
         }
     }
 
@@ -32,8 +32,8 @@ pipeline {
     stages {
 	stage('Fix jenkins permission issues ') {             
             steps { 
-		sh "chmod +x umask.sh"
-                sh "./umask.sh"
+		//sh "chmod +x umask.sh"
+                //sh "./umask.sh"
 		sh 'umask'
             }
         }    
