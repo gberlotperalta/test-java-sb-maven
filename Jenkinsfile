@@ -3,7 +3,7 @@ pipeline {
     agent {
          docker {
             image 'gberlot/mvn3_jdk8_umask:v.1.0'
-            args '-v $WORKSPACE:/tmp/sbapp -u="root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock --entrypoint="./docker-umask.sh"'
+            args '-v $WORKSPACE:/tmp/sbapp -u="root" -w /tmp/sbapp -v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""'
         }
     }
 
