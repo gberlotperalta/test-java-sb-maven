@@ -144,7 +144,7 @@ pipeline {
         always {
             script {
             image.inside('-u root') {
-              sh 'find . -user root -name \'*\' | xargs chmod ugo+rw'
+              sh 'find . -user root'
             	}
         }
 	    deleteDir() /* clean up our workspace */
