@@ -142,9 +142,12 @@ pipeline {
     //stages
      post {
         always {
-            echo 'One way or another, I have finished'	
-	    sh 'whoami'
-            deleteDir() /* clean up our workspace */
+            script {
+            image.inside('-u root') {
+              sh 'find . -user root -name \'*\' | xargs chmod ugo+rw'
+            	}
+        }
+	    deleteDir() /* clean up our workspace */
         }
         success {
             echo 'I succeeded!'
