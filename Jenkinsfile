@@ -142,11 +142,6 @@ pipeline {
     //stages
      post {
         always {
-            script {
-            image.inside('-u root') {
-              sh 'find . -user root'
-            	}
-        }
 	    deleteDir() /* clean up our workspace */
         }
         success {
